@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EventAppApi.Models
+﻿namespace EventAppApi.Models
 {
     public class Account
     {
@@ -12,6 +7,6 @@ namespace EventAppApi.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
-        public string SecondName { get; set; }
+        public string Surname { get; set; }
     }
 }
