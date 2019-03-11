@@ -89,13 +89,17 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
-    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventApp\EventApp.csproj">
       <Project>{370C10EC-8ACA-4418-A0C2-7DC169E4C957}</Project>
       <Name>EventApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\drawable\loginBackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

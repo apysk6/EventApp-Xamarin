@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventApp.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,7 @@ namespace EventApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new SignInWindow());
         }
 
         protected override void OnStart()
