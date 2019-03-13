@@ -46,7 +46,7 @@ namespace EventApp.ViewModels
             }
         }
 
-        public bool CanLogin =>
+        public bool CanRegister =>
             !string.IsNullOrEmpty(_email) && !string.IsNullOrEmpty(_password) &&
             !string.IsNullOrEmpty(_confirmedPassword);
 
@@ -61,7 +61,7 @@ namespace EventApp.ViewModels
 
         private void FormTextChanged(object sender, TextChangedEventArgs e)
         {
-            NotifyPropertyChange(nameof(CanLogin));   
+            NotifyPropertyChange(nameof(CanRegister));   
         }
 
         private void LoginPressed(object obj)
@@ -71,7 +71,7 @@ namespace EventApp.ViewModels
 
         private void RegisterPressed(object obj)
         {
-
+            _signInWindow.Navigation.PushAsync(new SignUpWindow());
         }
 
     }
