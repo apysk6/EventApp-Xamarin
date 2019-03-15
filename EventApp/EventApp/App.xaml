@@ -1,8 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:EventApp.Models.Behaviors;assembly=EventApp"
              x:Class="EventApp.App">
     <Application.Resources>
+        <ResourceDictionary>
 
+            <Color x:Key="ErrorColor">#ff5252</Color>
+
+            <OnPlatform x:Key="LittleSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="12" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="14" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="16" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="18" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="LargerSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="20" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="BigSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="24" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="ExtraBigSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="32" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="HugeSize"
+                        x:TypeArguments="x:Double">
+                <On Platform="Android, UWP, WinRT, WinPhone" Value="48" />
+            </OnPlatform>
+
+            <Style x:Key="ValidationErrorLabelStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="TextColor"
+                           Value="{StaticResource ErrorColor}" />
+                <Setter Property="FontSize"
+                           Value="{StaticResource LittleSize}" />
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

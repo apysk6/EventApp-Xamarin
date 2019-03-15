@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using EventApp.Models;
@@ -12,11 +13,11 @@ namespace EventApp.ViewModels
     public class SignUpViewModel : NotifyBase
     {
         private readonly SignUpWindow _signUpWindow;
-        private ValidatableObject<string> _firstName;
-        private string _secondName;
-        private string _email;
-        private string _password;
-        private string _confirmedPassword;
+        private ValidatableObject<string> _firstName = new ValidatableObject<string>();
+        private ValidatableObject<string> _secondName = new ValidatableObject<string>();
+        private ValidatableObject<string> _email = new ValidatableObject<string>();
+        private ValidatableObject<string> _password = new ValidatableObject<string>();
+        private ValidatableObject<string> _confirmedPassword = new ValidatableObject<string>();
 
         public ValidatableObject<string> FirstName
         {
@@ -28,7 +29,7 @@ namespace EventApp.ViewModels
             }
         }
 
-        public string SecondName
+        public ValidatableObject<string> SecondName
         {
             get => _secondName;
             set
@@ -38,7 +39,7 @@ namespace EventApp.ViewModels
             }
         }
 
-        public string Email
+        public ValidatableObject<string> Email
         {
             get => _email;
             set
@@ -48,7 +49,7 @@ namespace EventApp.ViewModels
             }
         }
 
-        public string Password
+        public ValidatableObject<string> Password
         {
             get => _password;
             set
@@ -58,7 +59,7 @@ namespace EventApp.ViewModels
             }
         }
 
-        public string ConfirmedPassword
+        public ValidatableObject<string> ConfirmedPassword
         {
             get => _confirmedPassword;
             set
@@ -68,12 +69,6 @@ namespace EventApp.ViewModels
             }
         }
 
-        public bool CanLogin =>
-            !string.IsNullOrEmpty(_email) && !string.IsNullOrEmpty(_password) &&
-            !string.IsNullOrEmpty(_confirmedPassword) &&
-            !string.IsNullOrEmpty(_firstName.Value) &&
-            !string.IsNullOrEmpty(_secondName);
-
         public ICommand Register => new Command(RegisterPressed);
 
         public ICommand Back => new Command(BackPressed);
@@ -81,13 +76,6 @@ namespace EventApp.ViewModels
         public SignUpViewModel(SignUpWindow signUpWindow)
         {
             _signUpWindow = signUpWindow;
-
-            _signUpWindow.FindByName<Entry>("emailEntry").TextChanged += FormTextChanged;
-            _signUpWindow.FindByName<Entry>("firstNameEntry").TextChanged += FormTextChanged;
-            _signUpWindow.FindByName<Entry>("secondNameEntry").TextChanged += FormTextChanged;
-            _signUpWindow.FindByName<Entry>("passwordEntry").TextChanged += FormTextChanged;
-            _signUpWindow.FindByName<Entry>("confirmedPasswordEntry").TextChanged += FormTextChanged;
-
             AddValidationRules();
         }
 
@@ -97,11 +85,21 @@ namespace EventApp.ViewModels
             {
                 ValidationMessage = "First name is required."
             });
-        }
 
-        private void FormTextChanged(object sender, TextChangedEventArgs e)
-        {
-            NotifyPropertyChange(nameof(CanLogin));
+            _secondName.Rules.Add(new IsNotNullOrEmptyRule<string>
+            {
+                ValidationMessage = "Second name is required."
+            });
+
+            _email.Rules.Add(new IsNotNullOrEmptyRule<string>
+            {
+                ValidationMessage = "Email is required."
+            });
+
+            _email.Rules.Add(new EmailRule<string>
+            {
+                ValidationMessage = "Email is not valid."
+            });
         }
 
         private void BackPressed(object obj)
@@ -111,7 +109,21 @@ namespace EventApp.ViewModels
 
         private void RegisterPressed(object obj)
         {
-            //Client.
+             ValidateEntries();
+
+             var isError = _firstName.Errors.Any() || _secondName.Errors.Any() || _email.Errors.Any();
+
+             if (isError)
+                 return;
+
+             // Client service.
+        }
+
+        private void ValidateEntries()
+        {
+            _firstName.Validate();
+            _secondName.Validate();
+            _email.Validate();
         }
     }
 }
