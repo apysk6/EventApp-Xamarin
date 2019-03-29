@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:EventApp.Models.Converters;assembly=EventApp"
              x:Class="EventApp.Views.SignInWindow"
              BackgroundImage="loginBackground.jpg">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -11,9 +17,14 @@
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <StackLayout Orientation="Vertical" Grid.Row="1">
-                <Entry Text="{Binding Email}" HorizontalOptions="Center" WidthRequest="250" x:Name="emailEntry"  Placeholder="Email"/>
-                <Entry Text="{Binding Password}" HorizontalOptions="Center" WidthRequest="250" x:Name="passwordEntry" Placeholder="Password" IsPassword="True"/>
-                <Entry Text="{Binding ConfirmedPassword}" HorizontalOptions="Center" WidthRequest="250" x:Name="confirmedPasswordEntry" Placeholder="Confirm Password" IsPassword="True"/>
+                <Entry Text="{Binding Email.Value}" HorizontalOptions="Center" WidthRequest="250" x:Name="emailEntry" Placeholder="Email"/>
+                <Label HorizontalOptions="Center" Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                <Entry Text="{Binding Password.Value}" HorizontalOptions="Center" WidthRequest="250" x:Name="passwordEntry" Placeholder="Password" IsPassword="True"/>
+                <Label HorizontalOptions="Center" Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                <Entry Text="{Binding ConfirmedPassword.Value}" HorizontalOptions="Center" WidthRequest="250" x:Name="confirmedPasswordEntry" Placeholder="Confirm Password" IsPassword="True"/>
+                <Label HorizontalOptions="Center" Text="{Binding ConfirmedPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
 
                 <Button Command="{Binding Login}" Margin="0, 10, 0, 0" IsEnabled="{Binding CanLogin}" TextColor="White" HorizontalOptions="Center" WidthRequest="200" BackgroundColor="#3897F0" Text="Login"/>
                 <Button Command="{Binding Register}" Margin="0, 10, 0, 0" HorizontalOptions="Center" TextColor="White" WidthRequest="200" BackgroundColor="#ed1c24" Opacity="0.8" Text="Register"/>

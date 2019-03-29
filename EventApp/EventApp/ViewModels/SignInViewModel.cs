@@ -1,6 +1,8 @@
-﻿using EventApp.Views;
+﻿using System.Linq;
+using EventApp.Views;
 using System.Windows.Input;
 using EventApp.Models;
+using EventApp.Models.Validation;
 using Xamarin.Forms;
 
 namespace EventApp.ViewModels
@@ -8,15 +10,15 @@ namespace EventApp.ViewModels
     public class SignInViewModel : NotifyBase
     {
         private readonly SignInWindow _signInWindow;
-        private string _email;
-        private string _password;
-        private string _confirmedPassword;
+        private ValidatableObject<string> _email = new ValidatableObject<string>();
+        private ValidatableObject<string> _password = new ValidatableObject<string>();
+        private ValidatableObject<string> _confirmedPassword = new ValidatableObject<string>();
 
         public ICommand Login => new Command(LoginPressed);
 
         public ICommand Register => new Command(RegisterPressed);
 
-        public string Email
+        public ValidatableObject<string> Email
         {
             get => _email;
             set
@@ -26,7 +28,7 @@ namespace EventApp.ViewModels
             } 
         }
 
-        public string Password
+        public ValidatableObject<string> Password
         {
             get => _password;
             set
@@ -36,7 +38,7 @@ namespace EventApp.ViewModels
             }
         }
 
-        public string ConfirmedPassword
+        public ValidatableObject<string> ConfirmedPassword
         {
             get => _confirmedPassword;
             set
@@ -46,27 +48,57 @@ namespace EventApp.ViewModels
             }
         }
 
-        public bool CanRegister =>
-            !string.IsNullOrEmpty(_email) && !string.IsNullOrEmpty(_password) &&
-            !string.IsNullOrEmpty(_confirmedPassword);
 
         public SignInViewModel(SignInWindow signInWindow)
         {
             _signInWindow = signInWindow;
-
-            _signInWindow.FindByName<Entry>("emailEntry").TextChanged += FormTextChanged;
-            _signInWindow.FindByName<Entry>("passwordEntry").TextChanged += FormTextChanged;
-            _signInWindow.FindByName<Entry>("confirmedPasswordEntry").TextChanged += FormTextChanged;
+            AddValidationRules();
         }
 
-        private void FormTextChanged(object sender, TextChangedEventArgs e)
+        private void AddValidationRules()
         {
-            NotifyPropertyChange(nameof(CanRegister));   
+            _email.Rules.Add(new IsNotNullOrEmptyRule<string>
+            {
+                ValidationMessage = "Email is required."
+            });
+
+            _email.Rules.Add(new EmailRule<string>
+            {
+                ValidationMessage = "Email is not valid."
+            });
+
+            _password.Rules.Add(new IsNotNullOrEmptyRule<string>()
+            {
+                ValidationMessage = "Password is required."
+            });
+
+            _confirmedPassword.Rules.Add(new IsNotNullOrEmptyRule<string>()
+            {
+                ValidationMessage = "Password confirmation is required."
+            });
         }
 
         private void LoginPressed(object obj)
         {
-            
+            ValidateEntries();
+
+            var isError = _email.Errors.Any() || _password.Errors.Any() || _confirmedPassword.Errors.Any() ;
+
+            if (isError)
+                return;
+        }
+
+        private void ValidateEntries()
+        {
+            _email.Validate();
+            _password.Validate();
+            _confirmedPassword.Validate();
+
+            if (string.IsNullOrEmpty(_password.Value) || string.IsNullOrEmpty(_confirmedPassword.Value))
+                return;
+
+            if (!_password.Value.Equals(_confirmedPassword.Value))
+                _confirmedPassword.Errors.Add("Passwords must match.");
         }
 
         private void RegisterPressed(object obj)

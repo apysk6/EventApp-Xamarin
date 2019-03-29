@@ -14,10 +14,11 @@ namespace EventApp.ViewModels
     {
         private readonly SignUpWindow _signUpWindow;
         private ValidatableObject<string> _firstName = new ValidatableObject<string>();
-        private ValidatableObject<string> _secondName = new ValidatableObject<string>();
+        private ValidatableObject<string> _surname = new ValidatableObject<string>();
         private ValidatableObject<string> _email = new ValidatableObject<string>();
         private ValidatableObject<string> _password = new ValidatableObject<string>();
         private ValidatableObject<string> _confirmedPassword = new ValidatableObject<string>();
+        private ValidatableObject<string> _city = new ValidatableObject<string>();
 
         public ValidatableObject<string> FirstName
         {
@@ -29,13 +30,23 @@ namespace EventApp.ViewModels
             }
         }
 
-        public ValidatableObject<string> SecondName
+        public ValidatableObject<string> Surname
         {
-            get => _secondName;
+            get => _surname;
             set
             {
-                _secondName = value;
-                NotifyPropertyChange(nameof(SecondName));
+                _surname = value;
+                NotifyPropertyChange(nameof(Surname));
+            }
+        }
+
+        public ValidatableObject<string> City
+        {
+            get => _city;
+            set
+            {
+                _city = value;
+                NotifyPropertyChange(nameof(City));
             }
         }
 
@@ -86,9 +97,14 @@ namespace EventApp.ViewModels
                 ValidationMessage = "First name is required."
             });
 
-            _secondName.Rules.Add(new IsNotNullOrEmptyRule<string>
+            _surname.Rules.Add(new IsNotNullOrEmptyRule<string>
             {
                 ValidationMessage = "Second name is required."
+            });
+
+            _city.Rules.Add(new IsNotNullOrEmptyRule<string>
+            {
+                ValidationMessage = "City is required."
             });
 
             _email.Rules.Add(new IsNotNullOrEmptyRule<string>
@@ -100,6 +116,27 @@ namespace EventApp.ViewModels
             {
                 ValidationMessage = "Email is not valid."
             });
+
+            _password.Rules.Add(new IsNotNullOrEmptyRule<string>()
+            {
+                ValidationMessage = "Password is required."
+            });
+
+            _confirmedPassword.Rules.Add(new IsNotNullOrEmptyRule<string>()
+            {
+                ValidationMessage = "Password confirmation is required."
+            });
+
+            _password.Rules.Add(new PasswordRule<string>()
+            {
+                ValidationMessage = "Password must contain one lower case, one upper case, one digit and be 8 characters long."
+            });
+
+            _confirmedPassword.Rules.Add(new PasswordRule<string>()
+            {
+                ValidationMessage = "Password must contain one lower case, one upper case, one digit and be 8 characters long."
+            });
+
         }
 
         private void BackPressed(object obj)
@@ -111,7 +148,7 @@ namespace EventApp.ViewModels
         {
              ValidateEntries();
 
-             var isError = _firstName.Errors.Any() || _secondName.Errors.Any() || _email.Errors.Any();
+            var isError = _firstName.Errors.Any() || _surname.Errors.Any() || _email.Errors.Any() || _city.Errors.Any();
 
              if (isError)
                  return;
@@ -122,8 +159,17 @@ namespace EventApp.ViewModels
         private void ValidateEntries()
         {
             _firstName.Validate();
-            _secondName.Validate();
+            _surname.Validate();
             _email.Validate();
+            _city.Validate();
+            _password.Validate();
+            _confirmedPassword.Validate();
+
+            if (string.IsNullOrEmpty(_password.Value) || string.IsNullOrEmpty(_confirmedPassword.Value))
+                return;
+
+            if (!_password.Value.Equals(_confirmedPassword.Value))
+                _confirmedPassword.Errors.Add("Passwords must match.");
         }
     }
 }
