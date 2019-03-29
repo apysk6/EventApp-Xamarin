@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using EventApp.Models;
 using EventApp.Models.Validation;
@@ -148,12 +149,12 @@ namespace EventApp.ViewModels
         {
              ValidateEntries();
 
-            var isError = _firstName.Errors.Any() || _surname.Errors.Any() || _email.Errors.Any() || _city.Errors.Any();
+            var isError = _firstName.Errors.Any() || _surname.Errors.Any() || _email.Errors.Any() || _city.Errors.Any() || _confirmedPassword.Errors.Any();
 
              if (isError)
                  return;
 
-             // Client service.
+            Task<bool> result = Client.Instance.RegisterAsync(_email.Value, _password.Value, _firstName.Value, _surname.Value, _city.Value);
         }
 
         private void ValidateEntries()

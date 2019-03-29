@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using EventApp.Views;
 using System.Windows.Input;
 using EventApp.Models;
@@ -99,6 +100,8 @@ namespace EventApp.ViewModels
 
             if (!_password.Value.Equals(_confirmedPassword.Value))
                 _confirmedPassword.Errors.Add("Passwords must match.");
+
+            //Task<bool> loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value);
         }
 
         private void RegisterPressed(object obj)

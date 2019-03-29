@@ -12,5 +12,6 @@ namespace EventApp.Models
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
+        public string City { get; set; }
     }
 }
