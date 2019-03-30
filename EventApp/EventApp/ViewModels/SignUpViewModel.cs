@@ -154,7 +154,12 @@ namespace EventApp.ViewModels
              if (isError)
                  return;
 
-            Task<bool> result = Client.Instance.RegisterAsync(_email.Value, _password.Value, _firstName.Value, _surname.Value, _city.Value);
+            var result = Client.Instance.RegisterAsync(_email.Value, _password.Value, _firstName.Value, _surname.Value, _city.Value);
+
+            if (result.Result)
+            {
+                _signUpWindow.Navigation.PopAsync();
+            }
         }
 
         private void ValidateEntries()

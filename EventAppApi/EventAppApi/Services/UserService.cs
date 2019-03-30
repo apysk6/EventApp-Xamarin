@@ -29,7 +29,7 @@ namespace EventAppApi.Services
 
         public string Authenticate(string email, string password)
         {
-            var user = _accounts.SingleOrDefault(x => x.Email == email && x.Password == password);
+            var user = _accounts.FirstOrDefault(x => x.Email == email && x.Password == password);
 
             if (user == null)
                 return null;

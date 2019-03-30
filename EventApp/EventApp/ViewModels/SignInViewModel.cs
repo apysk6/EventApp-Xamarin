@@ -4,6 +4,7 @@ using EventApp.Views;
 using System.Windows.Input;
 using EventApp.Models;
 using EventApp.Models.Validation;
+using Plugin.Settings;
 using Xamarin.Forms;
 
 namespace EventApp.ViewModels
@@ -101,7 +102,16 @@ namespace EventApp.ViewModels
             if (!_password.Value.Equals(_confirmedPassword.Value))
                 _confirmedPassword.Errors.Add("Passwords must match.");
 
-            //Task<bool> loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value);
+            var currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
+
+            if (string.IsNullOrEmpty(currentToken))
+            {
+                bool loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value).Result;
+            }
+            else
+            {
+
+            }
         }
 
         private void RegisterPressed(object obj)
