@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:EventApp.Models.Converters;assembly=EventApp"
+             xmlns:controls="clr-namespace:Windows.UI.Xaml.Controls;assembly=Windows.Foundation.UniversalApiContract"
+             x:Class="EventApp.Views.AddEventWindow"
+             BackgroundColor="#ECF0F1">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Vertical" Grid.Row="1">
+                <Entry Text="{Binding Name.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="nameEntry" Placeholder="Event name"/>
+                <Label HorizontalOptions="Center" Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                <DatePicker Date="{Binding Date.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="dateEntry"/>
+                <TimePicker Time="{Binding Time.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="timeEntry"/>
+                <Label HorizontalOptions="Center" Text="{Binding Date.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                <Entry Text="{Binding Place.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="placeEntry" Placeholder="Enter place of the event."/>
+                <Label HorizontalOptions="Center" Text="{Binding Place.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                <Editor Text="{Binding Description.Value}" HorizontalOptions="Center" WidthRequest="300" HeightRequest="120" x:Name="descriptionEntry" Placeholder="Enter description of the event."/>
+                <Label HorizontalOptions="Center" Text="{Binding Description.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                <Button Command="{Binding AddEvent}" Margin="0, 10, 0, 0" IsEnabled="{Binding CanAddEvent}" TextColor="White" HorizontalOptions="Center" WidthRequest="200" BackgroundColor="#3897F0" Text="Add Event"/>
+                <Button Command="{Binding Back}" Margin="0, 10, 0, 0" HorizontalOptions="Center" TextColor="White" WidthRequest="200" BackgroundColor="#ed1c24" Opacity="0.8" Text="Back"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

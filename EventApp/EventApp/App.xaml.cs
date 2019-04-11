@@ -12,7 +12,7 @@ namespace EventApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new SignInWindow());
+            MainPage = new NavigationPage(new AddEventWindow());
         }
 
         protected override void OnStart()

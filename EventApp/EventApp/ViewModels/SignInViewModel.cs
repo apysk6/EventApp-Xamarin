@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using EventApp.Views;
 using System.Windows.Input;
 using EventApp.Models;
@@ -88,6 +87,17 @@ namespace EventApp.ViewModels
 
             if (isError)
                 return;
+
+            var currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
+
+            if (string.IsNullOrEmpty(currentToken))
+            {
+                bool loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value).Result;
+            }
+            else
+            {
+
+            }
         }
 
         private void ValidateEntries()
@@ -100,18 +110,7 @@ namespace EventApp.ViewModels
                 return;
 
             if (!_password.Value.Equals(_confirmedPassword.Value))
-                _confirmedPassword.Errors.Add("Passwords must match.");
-
-            var currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
-
-            if (string.IsNullOrEmpty(currentToken))
-            {
-                bool loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value).Result;
-            }
-            else
-            {
-
-            }
+                _confirmedPassword.Errors.Add("Passwords must match.");       
         }
 
         private void RegisterPressed(object obj)
