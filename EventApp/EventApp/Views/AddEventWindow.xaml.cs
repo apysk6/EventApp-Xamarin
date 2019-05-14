@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ namespace EventApp.Views
 	{
 		public AddEventWindow ()
 		{
-			InitializeComponent ();
+			InitializeComponent();
+            BindingContext = new AddEventViewModel(this);
 		}
 	}
 }
