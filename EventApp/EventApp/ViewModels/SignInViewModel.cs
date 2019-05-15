@@ -93,11 +93,15 @@ namespace EventApp.ViewModels
             if (string.IsNullOrEmpty(currentToken))
             {
                 bool loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value).Result;
-            }
-            else
-            {
 
+                if (!loginSuccess)
+                {
+                    _signInWindow.DisplayAlert("Information", "Provided credentials are not valid. Try again.", "OK");
+                    return;
+                }
             }
+
+            _signInWindow.Navigation.PushAsync(new AddEventWindow());
         }
 
         private void ValidateEntries()

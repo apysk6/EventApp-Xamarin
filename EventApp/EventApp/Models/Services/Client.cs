@@ -67,5 +67,18 @@ namespace EventApp.Models
 
             return response.IsSuccessStatusCode;
         } 
+
+        public async Task<bool> AddEventAsync(Event newEvent)
+        {
+            var client = new HttpClient();
+            var json = JsonConvert.SerializeObject(newEvent);
+            HttpContent content = new StringContent(json);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            content.Headers.Add("token", AppSettings.GetValueOrDefault("Token", string.Empty));
+
+            var response = await client.PostAsync("https://eventappapi.azurewebsites.net/api/Events", content).ConfigureAwait(false);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

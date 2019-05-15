@@ -21,17 +21,22 @@
                 <Entry Text="{Binding Name.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="nameEntry" Placeholder="Event name"/>
                 <Label HorizontalOptions="Center" Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
 
-                <DatePicker Date="{Binding Date.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="dateEntry"/>
+                <DatePicker Date="{Binding Date.Value}" Format="D" HorizontalOptions="Center" WidthRequest="300" x:Name="dateEntry"/>
                 <TimePicker Time="{Binding Time.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="timeEntry"/>
                 <Label HorizontalOptions="Center" Text="{Binding Date.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+                <Label HorizontalOptions="Center" Text="{Binding Time.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
 
                 <Entry Text="{Binding Place.Value}" HorizontalOptions="Center" WidthRequest="300" x:Name="placeEntry" Placeholder="Enter place of the event."/>
                 <Label HorizontalOptions="Center" Text="{Binding Place.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
 
-                <Button Command="{Binding AddImage}" Margin="0, 10, 0, 0" TextColor="White" HorizontalOptions="Center" WidthRequest="200" BackgroundColor="#667b9e" Text="Select Image"/>
+                <Button Command="{Binding AddImage}" Margin="5" TextColor="White" HorizontalOptions="Center" WidthRequest="200" BackgroundColor="#667b9e" Text="Select Image"/>
 
                 <Editor Text="{Binding Description.Value}" HorizontalOptions="Center" WidthRequest="300" HeightRequest="120" x:Name="descriptionEntry" Placeholder="Enter description of the event."/>
                 <Label HorizontalOptions="Center" Text="{Binding Description.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                <Label HorizontalOptions="Center" Text="Tickets"/>
+                <Switch x:Name="ticketsSwitch" IsToggled="{Binding IsTicketToggled}" Margin="10, 0, 0, 0" HorizontalOptions="Center"/>
+                <Entry Text="{Binding Price.Value}" IsVisible="{Binding IsTicketToggled}" HorizontalOptions="Center" WidthRequest="300" x:Name="priceEntry" Placeholder="Enter price of the ticket."/>
 
                 <Button Command="{Binding AddEvent}" Margin="0, 10, 0, 0" IsEnabled="{Binding CanAddEvent}" TextColor="White" HorizontalOptions="Center" WidthRequest="200" BackgroundColor="#3897F0" Text="Add Event"/>
                 <Button Command="{Binding Back}" Margin="0, 10, 0, 0" HorizontalOptions="Center" TextColor="White" WidthRequest="200" BackgroundColor="#ed1c24" Opacity="0.8" Text="Back"/>
