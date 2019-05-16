@@ -4,6 +4,7 @@ using EventApp.Views;
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -133,7 +134,7 @@ namespace EventApp.ViewModels
                 Price = _price.Value,
                 Date = _date.Value,
                 Time = _time.Value,
-                Image = _image,
+                ImageString = Convert.ToBase64String(_image),
                 AccountId = 1
             };
 
@@ -156,7 +157,7 @@ namespace EventApp.ViewModels
             _place.Validate();
             _description.Validate();
             _date.Validate();
-            _time.Validate();
+            //_time.Validate();
 
             var isError = _name.Errors.Any() || _place.Errors.Any() || _description.Errors.Any() || _date.Errors.Any() || _time.Errors.Any();
 

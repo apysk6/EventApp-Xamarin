@@ -76,7 +76,7 @@ namespace EventAppApi.Controllers
         public async Task<ActionResult<Event>> PostEvent(Event @event)
         {
             string token = Request.Headers["token"];
-            var account = _context.Accounts.First(x => x.Token.Equals(token));
+            var account = _context.Accounts.FirstOrDefault(x => x.Token.Equals(token));
 
             if (account != null)
             {

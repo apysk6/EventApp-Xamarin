@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -79,6 +80,20 @@ namespace EventApp.Models
             var response = await client.PostAsync("https://eventappapi.azurewebsites.net/api/Events", content).ConfigureAwait(false);
 
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<List<Event>> GetEvents()
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("https://eventappapi.azurewebsites.net/api/Events").ConfigureAwait(false);
+            var events = new List<Event>();
+
+            if (response.IsSuccessStatusCode)
+            {
+                events = JsonConvert.DeserializeObject<List<Event>>(await response.Content.ReadAsStringAsync());
+            }
+
+            return events;
         }
     }
 }

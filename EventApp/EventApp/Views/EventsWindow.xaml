@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventApp.Views.EventsWindow">
+    <ContentPage.Content>
+        <ListView ItemsSource="{Binding Events}" CachingStrategy="RecycleElement" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="10">
+                            <Image Source="{Binding DisplayImage}" HorizontalOptions="Center" WidthRequest="100" HeightRequest="100"/>
+                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Name}"></Label>
+                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding DateText}"></Label>
+                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding TimeText}"></Label>
+                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Place}"></Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+    </ContentPage.Content>
+</ContentPage>

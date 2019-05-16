@@ -101,7 +101,7 @@ namespace EventApp.ViewModels
                 }
             }
 
-            _signInWindow.Navigation.PushAsync(new AddEventWindow());
+            _signInWindow.Navigation.PushAsync(new EventsWindow());
         }
 
         private void ValidateEntries()
