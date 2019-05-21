@@ -53,6 +53,14 @@ namespace EventApp.ViewModels
         public SignInViewModel(SignInWindow signInWindow)
         {
             _signInWindow = signInWindow;
+
+            //string currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
+            //if (!string.IsNullOrEmpty(currentToken))
+            //{
+            //    _signInWindow.Navigation.PushAsync(new EventsWindow());
+            //}
+
+
             AddValidationRules();
         }
 
@@ -90,8 +98,8 @@ namespace EventApp.ViewModels
 
             var currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
 
-            if (string.IsNullOrEmpty(currentToken))
-            {
+            //if (string.IsNullOrEmpty(currentToken))
+            //{
                 bool loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value).Result;
 
                 if (!loginSuccess)
@@ -99,7 +107,7 @@ namespace EventApp.ViewModels
                     _signInWindow.DisplayAlert("Information", "Provided credentials are not valid. Try again.", "OK");
                     return;
                 }
-            }
+            //}
 
             _signInWindow.Navigation.PushAsync(new EventsWindow());
         }

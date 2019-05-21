@@ -3,20 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventApp.Views.EventsWindow">
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Events}" CachingStrategy="RecycleElement" HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Margin="10">
-                            <Image Source="{Binding DisplayImage}" HorizontalOptions="Center" WidthRequest="100" HeightRequest="100"/>
-                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Name}"></Label>
-                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding DateText}"></Label>
-                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding TimeText}"></Label>
-                            <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Place}"></Label>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+        <Grid>
+            <StackLayout HorizontalOptions="CenterAndExpand" WidthRequest="400" VerticalOptions="CenterAndExpand">
+                <Picker x:Name="picker" Title="Filter" ItemsSource="{Binding Filters}" ItemDisplayBinding="{Binding .}" SelectedItem="{Binding SelectedFilter}" VerticalOptions="EndAndExpand"/>
+                <ListView ItemsSource="{Binding Events}" SelectedItem="{Binding SelectedEvent, Mode=TwoWay}" CachingStrategy="RecycleElement" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="10">
+                                <Image Source="{Binding DisplayImage}" HorizontalOptions="Center" WidthRequest="200" HeightRequest="100"/>
+                                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Name}"></Label>
+                                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding DateText}"></Label>
+                                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding TimeText}"></Label>
+                                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Place}"></Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
+            <Button Command="{Binding AddEvent}" Margin="0, 10, 0, 0" TextColor="White" HorizontalOptions="Center" WidthRequest="200" BackgroundColor="#3897F0" Text="Add event"/>
+        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

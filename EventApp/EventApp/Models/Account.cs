@@ -13,5 +13,6 @@ namespace EventApp.Models
         public string FirstName { get; set; }
         public string Surname { get; set; }
         public string City { get; set; }
+        public string Token { get; set; }
     }
 }

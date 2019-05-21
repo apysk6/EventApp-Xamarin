@@ -19,12 +19,14 @@ namespace EventAppApi.Services
         private readonly AppSettings _appSettings;
         private readonly DataContext _context;
         private List<Account> _accounts;
+        private List<Event> _events;
 
         public UserService(DataContext context, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
             _context = context;
             _accounts = _context.Accounts.ToList();
+            _events = _context.Event.ToList();
         }
 
         public string Authenticate(string email, string password)
@@ -51,6 +53,31 @@ namespace EventAppApi.Services
              _context.SaveChangesAsync();
 
             return user.Token;
+        }
+
+        public IEnumerable<Event> GetEvents(string token)
+        {
+            var user = _accounts.FirstOrDefault(x => x.Token.Equals(token));
+            int userId = user.Id;
+
+            var events = _events.Where(x => x.AccountId == userId).ToList();
+
+            if (user == null)
+                return new List<Event>();
+
+            return events;
+        }
+
+        public IEnumerable<Event> GetEventsInYourCity(string token)
+        {
+            var user = _accounts.FirstOrDefault(x => x.Token.Equals(token));
+
+            List<Event> events = _events.Where(x => x.Place.Contains(user.City)).ToList();
+
+            if (user == null)
+                return new List<Event>();
+
+            return events;
         }
 
         public IEnumerable<Account> GetAll()

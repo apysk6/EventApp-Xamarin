@@ -16,6 +16,5 @@ namespace EventAppApi.Models
         public TimeSpan Time { get; set; }
         public string ImageString { get; set; }
         public int AccountId { get; set; }
-        public Account Account { get; set; }
     }
 }

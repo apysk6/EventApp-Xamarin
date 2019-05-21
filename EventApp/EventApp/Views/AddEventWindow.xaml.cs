@@ -13,10 +13,10 @@ namespace EventApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddEventWindow : ContentPage
 	{
-		public AddEventWindow ()
+		public AddEventWindow (EventsViewModel eventsViewModel)
 		{
 			InitializeComponent();
-            BindingContext = new AddEventViewModel(this);
+            BindingContext = new AddEventViewModel(this, eventsViewModel);
 		}
 	}
 }

@@ -81,7 +81,6 @@ namespace EventAppApi.Controllers
             if (account != null)
             {
                 @event.AccountId = account.Id;
-                account.Events.Add(@event);
             }
 
             _context.Event.Add(@event);

@@ -15,6 +15,7 @@ namespace EventApp.ViewModels
     {
         private AddEventWindow _addEventWindow;
         private byte[] _image;
+        private EventsViewModel _eventsViewModel;
         private bool _isTicketToggled = false;
         private ValidatableObject<string> _name = new ValidatableObject<string>();
         private ValidatableObject<string> _place = new ValidatableObject<string>();
@@ -111,10 +112,11 @@ namespace EventApp.ViewModels
 
         public ICommand Back => new Command(BackPressed);
 
-        public AddEventViewModel(AddEventWindow addEventWindow)
+        public AddEventViewModel(AddEventWindow addEventWindow, EventsViewModel eventsViewModel)
         {
             _addEventWindow = addEventWindow;
             _date.Value = DateTime.Now;
+            _eventsViewModel = eventsViewModel;
 
             AddValidationRules();
         }
@@ -135,7 +137,7 @@ namespace EventApp.ViewModels
                 Date = _date.Value,
                 Time = _time.Value,
                 ImageString = Convert.ToBase64String(_image),
-                AccountId = 1
+                //AccountId = 6
             };
 
             var result = Client.Instance.AddEventAsync(newEvent);
@@ -143,6 +145,7 @@ namespace EventApp.ViewModels
             if (result.Result)
             {
                 _addEventWindow.DisplayAlert("Information", "Adding an event was successful.", "OK");
+                Task.Run(async () => { await _eventsViewModel.GetAllEvents(); });
                 BackPressed();
             }
             else

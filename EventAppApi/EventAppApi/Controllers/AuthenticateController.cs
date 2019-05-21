@@ -35,6 +35,21 @@ namespace EventAppApi.Controllers
             var users = _userService.GetAll();
             return Ok(users);
         }
+
+        [HttpPost("getAccountEvents")]
+        public IActionResult GetAccountEvents([FromHeader]string token)
+        {
+            var events = _userService.GetEvents(token);
+            return Ok(events);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("getEventsInYourCity")]
+        public IActionResult GetEventsInYourCity([FromHeader]string token)
+        {
+            var events = _userService.GetEventsInYourCity(token);
+            return Ok(events);
+        }
     }
 
 }

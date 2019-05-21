@@ -78,7 +78,7 @@ namespace EventAppApi.Controllers
             _context.Accounts.Add(account);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return CreatedAtAction("GetAccount", new { id = account.Id, }, account);
         }
 
         // DELETE: api/Accounts/5

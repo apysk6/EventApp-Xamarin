@@ -11,6 +11,5 @@ namespace EventAppApi.Models
         public string Surname { get; set; }
         public string City { get; set; }
         public string Token { get; set; }
-        public IList<Event> Events { get; set; }
     }
 }

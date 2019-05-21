@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventApp.Views.EventDetailsWindow">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Margin="10" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" WidthRequest="400">
+                <Image Source="{Binding DisplayImage}" HorizontalOptions="Center" WidthRequest="300" HeightRequest="100"/>
+                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Name}"></Label>
+                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Date}"></Label>
+                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Time}"></Label>
+                <Label FontAttributes="Bold" HorizontalOptions="Center" Text="{Binding Place}"></Label>
+                <Label HorizontalOptions="Center" Text="{Binding Description}"></Label>
+                <Label HorizontalOptions="Center" Text="{Binding Tickets}" IsVisible="{Binding PriceVisibility}"></Label>
+                <Button Command="{Binding Back}" Margin="0, 10, 0, 0" HorizontalOptions="Center" TextColor="White" WidthRequest="200" BackgroundColor="#ed1c24" Opacity="0.8" Text="Back"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
