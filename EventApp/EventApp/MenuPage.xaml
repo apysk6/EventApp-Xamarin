@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage BackgroundColor="White"
+         xmlns="http://xamarin.com/schemas/2014/forms" 
+         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+         x:Class="EventApp.MenuPage"
+             Title="Menu">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" Padding="10">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="event_icon.png" Grid.Column="0" HeightRequest="50" WidthRequest="50" Grid.Row="0"/>
+                <Button Grid.Column="1" Grid.Row="0" Text="Events" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding EventsPage}" />
+            </Grid>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="profile_icon.png" Grid.Column="0" HeightRequest="50" WidthRequest="50" Grid.Row="0"/>
+                <Button Text="Profile" Grid.Column="1" Grid.Row="0" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding GoSecondCommand}" />
+            </Grid>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="settings_icon.png" Grid.Column="0" HeightRequest="50" WidthRequest="50" Grid.Row="0"/>
+                <Button Text="Settings" Grid.Column="1" Grid.Row="0" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding GoThirdCommand}"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

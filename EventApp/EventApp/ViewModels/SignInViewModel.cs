@@ -26,7 +26,7 @@ namespace EventApp.ViewModels
             {
                 _email = value;
                 NotifyPropertyChange(nameof(Email));
-            } 
+            }
         }
 
         public ValidatableObject<string> Password
@@ -54,14 +54,23 @@ namespace EventApp.ViewModels
         {
             _signInWindow = signInWindow;
 
-            //string currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
-            //if (!string.IsNullOrEmpty(currentToken))
-            //{
-            //    _signInWindow.Navigation.PushAsync(new EventsWindow());
-            //}
-
+            string currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
+            if (!string.IsNullOrEmpty(currentToken))
+            {
+                MoveToMenu();
+            }
 
             AddValidationRules();
+        }
+
+        private void MoveToMenu()
+        {
+            var menuPage = new MenuPage();
+            App.NavigationPage = new NavigationPage(new EventsWindow());
+            App.RootPage = new RootPage();
+            App.RootPage.Master = menuPage;
+            App.RootPage.Detail = App.NavigationPage;
+            _signInWindow.Navigation.PushAsync(App.RootPage);
         }
 
         private void AddValidationRules()
@@ -91,25 +100,20 @@ namespace EventApp.ViewModels
         {
             ValidateEntries();
 
-            var isError = _email.Errors.Any() || _password.Errors.Any() || _confirmedPassword.Errors.Any() ;
+            var isError = _email.Errors.Any() || _password.Errors.Any() || _confirmedPassword.Errors.Any();
 
             if (isError)
                 return;
 
-            var currentToken = CrossSettings.Current.GetValueOrDefault("Token", string.Empty);
+            bool loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value).Result;
 
-            //if (string.IsNullOrEmpty(currentToken))
-            //{
-                bool loginSuccess = Client.Instance.LoginAsync(_email.Value, _password.Value).Result;
+            if (!loginSuccess)
+            {
+                _signInWindow.DisplayAlert("Information", "Provided credentials are not valid. Try again.", "OK");
+                return;
+            }
 
-                if (!loginSuccess)
-                {
-                    _signInWindow.DisplayAlert("Information", "Provided credentials are not valid. Try again.", "OK");
-                    return;
-                }
-            //}
-
-            _signInWindow.Navigation.PushAsync(new EventsWindow());
+            MoveToMenu();
         }
 
         private void ValidateEntries()
@@ -122,7 +126,7 @@ namespace EventApp.ViewModels
                 return;
 
             if (!_password.Value.Equals(_confirmedPassword.Value))
-                _confirmedPassword.Errors.Add("Passwords must match.");       
+                _confirmedPassword.Errors.Add("Passwords must match.");
         }
 
         private void RegisterPressed(object obj)
