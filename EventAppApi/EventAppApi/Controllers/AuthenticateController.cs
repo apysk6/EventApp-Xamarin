@@ -29,6 +29,18 @@ namespace EventAppApi.Controllers
             return Ok(user);
         }
 
+        [AllowAnonymous]
+        [HttpPost("getCurrentAccount")]
+        public IActionResult GetCurrentAccount([FromHeader]string token)
+        {
+            var user = _userService.GetCurrentAccount(token);
+
+            if (user == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(user);
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -36,6 +48,7 @@ namespace EventAppApi.Controllers
             return Ok(users);
         }
 
+        [AllowAnonymous]
         [HttpPost("getAccountEvents")]
         public IActionResult GetAccountEvents([FromHeader]string token)
         {

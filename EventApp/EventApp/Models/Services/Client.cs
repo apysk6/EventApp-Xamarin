@@ -44,6 +44,31 @@ namespace EventApp.Models
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> UpdateAccount(int id, string email, string password, string firstName, string surname, string city)
+        {
+            var client = new HttpClient();
+
+            var model = new Account
+            {
+                Id = id,
+                Email = email,
+                Password = password,
+                Surname = surname,
+                FirstName = firstName,
+                City = city,
+                Token = AppSettings.GetValueOrDefault("Token", string.Empty)
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+            HttpContent content = new StringContent(json);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var response = await client.PutAsync("https://eventappapi.azurewebsites.net/api/Accounts" +"/" + id, content)
+                .ConfigureAwait(false);
+
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> LoginAsync(string email, string password)
         {
             var client = new HttpClient();
@@ -119,6 +144,26 @@ namespace EventApp.Models
             }
 
             return events;
+        }
+
+        public async Task<Account> GetCurrentAccount()
+        {
+            var client = new HttpClient();
+            var account = new Account();
+
+            HttpContent content = new StringContent(string.Empty);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            content.Headers.Add("token", AppSettings.GetValueOrDefault("Token", string.Empty));
+
+            var response = await client.PostAsync("https://eventappapi.azurewebsites.net/api/Authenticate/getCurrentAccount", content).ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                account = (Account)JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync(), typeof(Account));
+            }
+
+            return account;
         }
 
         public async Task<List<Event>> GetEvents()

@@ -10,6 +10,7 @@ namespace EventApp.Droid
 {
     public class PicturePickerImplementation : IPicturePicker
     {
+        [System.Obsolete]
         public Task<Stream> GetImageStreamAsync()
         {
             // Define the Intent for getting images
@@ -17,16 +18,19 @@ namespace EventApp.Droid
             intent.SetType("image/*");
             intent.SetAction(Intent.ActionGetContent);
 
+            // Get the MainActivity instance
+            MainActivity activity = Forms.Context as MainActivity;
+
             // Start the picture-picker activity (resumes in MainActivity.cs)
-            MainActivity.Instance.StartActivityForResult(
+            activity.StartActivityForResult(
                 Intent.CreateChooser(intent, "Select Picture"),
                 MainActivity.PickImageId);
 
             // Save the TaskCompletionSource object as a MainActivity property
-            MainActivity.Instance.PickImageTaskCompletionSource = new TaskCompletionSource<Stream>();
+            activity.PickImageTaskCompletionSource = new TaskCompletionSource<Stream>();
 
             // Return Task object
-            return MainActivity.Instance.PickImageTaskCompletionSource.Task;
+            return activity.PickImageTaskCompletionSource.Task;
         }
     }
 }

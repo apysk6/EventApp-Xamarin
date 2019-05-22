@@ -80,6 +80,11 @@ namespace EventAppApi.Services
             return events;
         }
 
+        public Account GetCurrentAccount(string token)
+        {
+            return _accounts.FirstOrDefault(x => x.Token.Equals(token));
+        }
+
         public IEnumerable<Account> GetAll()
         {
             return _accounts.Select(x => {

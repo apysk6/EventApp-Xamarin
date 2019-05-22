@@ -7,6 +7,7 @@ namespace EventAppApi.Services
     {
         string Authenticate(string username, string password);
         IEnumerable<Event> GetEvents(string token);
+        Account GetCurrentAccount(string token);
         IEnumerable<Event> GetEventsInYourCity(string token);
         IEnumerable<Account> GetAll();
     }

@@ -137,7 +137,6 @@ namespace EventApp.ViewModels
                 Date = _date.Value,
                 Time = _time.Value,
                 ImageString = Convert.ToBase64String(_image),
-                //AccountId = 6
             };
 
             var result = Client.Instance.AddEventAsync(newEvent);

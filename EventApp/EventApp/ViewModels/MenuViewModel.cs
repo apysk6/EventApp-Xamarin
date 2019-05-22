@@ -17,9 +17,17 @@ namespace EventApp.ViewModels
 
         public ICommand Settings => new Command(SettingsPressed);
 
+        public ICommand Profile => new Command(ProfilePressed);
+
         private void SettingsPressed(object obj)
         {
             App.NavigationPage.Navigation.PushAsync(new SettingsWindow()); //the content page you wanna load on this click event 
+            App.MenuIsPresented = false;
+        }
+
+        private void ProfilePressed(object obj)
+        {
+            App.NavigationPage.Navigation.PushAsync(new ProfileWindow()); //the content page you wanna load on this click event 
             App.MenuIsPresented = false;
         }
 

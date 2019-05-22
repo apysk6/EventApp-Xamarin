@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.438
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventApp", "EventApp.csproj", "{AFB6826C-B0E5-4898-B895-CBC2C5962464}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventApp.UWP", "..\EventApp.UWP\EventApp.UWP.csproj", "{FDAA520F-4C9B-4679-B1A6-97C7E4D5BA83}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventAppApi", "..\..\EventAppApi\EventAppApi\EventAppApi.csproj", "{C2F10240-D5DA-4572-8139-A737634F6D58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventApp.Android", "..\EventApp.Android\EventApp.Android.csproj", "{DE728C45-1881-45B7-8B89-1AB732C0A1E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,30 @@ Global
 		{C2F10240-D5DA-4572-8139-A737634F6D58}.Release|x64.Build.0 = Release|Any CPU
 		{C2F10240-D5DA-4572-8139-A737634F6D58}.Release|x86.ActiveCfg = Release|Any CPU
 		{C2F10240-D5DA-4572-8139-A737634F6D58}.Release|x86.Build.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|ARM.Build.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|x64.Build.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|x86.Build.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|ARM.ActiveCfg = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|ARM.Build.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|ARM.Deploy.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|x64.ActiveCfg = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|x64.Build.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|x64.Deploy.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|x86.ActiveCfg = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|x86.Build.0 = Release|Any CPU
+		{DE728C45-1881-45B7-8B89-1AB732C0A1E5}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

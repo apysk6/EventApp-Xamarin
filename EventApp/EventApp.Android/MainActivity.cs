@@ -23,20 +23,9 @@ namespace EventApp.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-            Init();
         }
 
         public static readonly int PickImageId = 1000;
-
-        static MainActivity() { }
-
-        public static void Init()
-        {
-            Instance = new MainActivity();
-        }
-
-        public static MainActivity Instance { get; private set; }
-
         public TaskCompletionSource<Stream> PickImageTaskCompletionSource { set; get; }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)

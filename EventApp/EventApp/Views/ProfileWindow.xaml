@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:EventApp.Models.Converters"
+             x:Class="EventApp.Views.ProfileWindow">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Vertical" Grid.Row="1">
+                    <Entry Text="{Binding FirstName.Value, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="250" x:Name="firstNameEntry" Placeholder="First name"/>
+                    <Label HorizontalOptions="Center" Text="{Binding FirstName.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                    <Entry Text="{Binding Surname.Value, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="250" x:Name="surnameEntry" Placeholder="Surname"/>
+                    <Label HorizontalOptions="Center" Text="{Binding Surname.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                    <Entry Text="{Binding City.Value, Mode=TwoWay}" HorizontalOptions="Center" WidthRequest="250" x:Name="cityEntry" Placeholder="City"/>
+                    <Label HorizontalOptions="Center" Text="{Binding City.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                    <Entry Text="{Binding Email.Value}" HorizontalOptions="Center" WidthRequest="250" x:Name="emailEntry" Placeholder="Email"/>
+                    <Label HorizontalOptions="Center" Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                    <Entry Text="{Binding Password.Value}" HorizontalOptions="Center" WidthRequest="250" x:Name="passwordEntry" Placeholder="Password" IsPassword="True"/>
+                    <Label HorizontalOptions="Center" Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                    <Entry Text="{Binding ConfirmedPassword.Value}" HorizontalOptions="Center" WidthRequest="250" x:Name="confirmedPasswordEntry" Placeholder="Confirm Password" IsPassword="True"/>
+                    <Label HorizontalOptions="Center" Text="{Binding ConfirmedPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}" Style="{StaticResource ValidationErrorLabelStyle}" />
+
+                    <Button Command="{Binding Change}" Margin="0, 10, 0, 0" HorizontalOptions="Center" TextColor="White" WidthRequest="200" BackgroundColor="#ed1c24" Opacity="0.8" Text="Change"/>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
