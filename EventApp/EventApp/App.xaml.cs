@@ -1,5 +1,6 @@
 ﻿using EventApp.Views;
 using System;
+using Plugin.Settings;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -36,7 +37,12 @@ namespace EventApp
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            bool isAutologin = CrossSettings.Current.GetValueOrDefault("Autologin", true);
+
+            if (!isAutologin)
+            {
+                CrossSettings.Current.AddOrUpdateValue("Token", string.Empty);
+            }
         }
 
         protected override void OnResume()

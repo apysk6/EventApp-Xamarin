@@ -86,12 +86,17 @@ namespace EventApp.Models
         public async Task<List<Event>> GetAccountEvents()
         {
             var client = new HttpClient();
-            var response = await client.GetAsync("https://eventappapi.azurewebsites.net/api/Authenticate/getAccountEvents").ConfigureAwait(false);
             var events = new List<Event>();
+
+            HttpContent content = new StringContent(string.Empty);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            content.Headers.Add("token", AppSettings.GetValueOrDefault("Token", string.Empty));
+
+            var response = await client.PostAsync("https://eventappapi.azurewebsites.net/api/Authenticate/getAccountEvents", content).ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)
             {
-                events = JsonConvert.DeserializeObject<List<Event>>(await response.Content.ReadAsStringAsync());
+                events = (List<Event>)JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync(), typeof(List<Event>));
             }
 
             return events;

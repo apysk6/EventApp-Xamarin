@@ -66,6 +66,9 @@ namespace EventApp.ViewModels
                         case "In your city":
                             Task.Run(async () => { await GetEventsInYourCity(); });
                             break;
+                        case "Your events":
+                            Task.Run(async () => { await GetYourEvents(); });
+                            break;
                     }
                 }
             }
@@ -78,6 +81,7 @@ namespace EventApp.ViewModels
             _eventsWindow = eventsWindow;
             Filters.Add("All");
             Filters.Add("In your city");
+            Filters.Add("Your events");
             SelectedFilter = Filters.First();
 
             Task.Run(async () => { await GetAllEvents(); });
@@ -101,6 +105,12 @@ namespace EventApp.ViewModels
         public async Task GetEventsInYourCity()
         {
             var events = await Client.Instance.GetEventsInYourCity();
+            Events = new ObservableCollection<Event>(events.ToList());
+        }
+
+        public async Task GetYourEvents()
+        {
+            var events = await Client.Instance.GetAccountEvents();
             Events = new ObservableCollection<Event>(events.ToList());
         }
     }

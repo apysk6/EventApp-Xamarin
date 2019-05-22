@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="profile_icon.png" Grid.Column="0" HeightRequest="50" WidthRequest="50" Grid.Row="0"/>
-                <Button Text="Profile" Grid.Column="1" Grid.Row="0" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding GoSecondCommand}" />
+                <Button Text="Profile" Grid.Column="1" Grid.Row="0" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding Profile}" />
             </Grid>
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
@@ -28,7 +28,15 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="settings_icon.png" Grid.Column="0" HeightRequest="50" WidthRequest="50" Grid.Row="0"/>
-                <Button Text="Settings" Grid.Column="1" Grid.Row="0" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding GoThirdCommand}"/>
+                <Button Text="Settings" Grid.Column="1" Grid.Row="0" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding Settings}"/>
+            </Grid>
+            <Grid Margin="15, 10, 10, 10" VerticalOptions="EndAndExpand" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="logout_icon.png" Grid.Column="0" HeightRequest="50" WidthRequest="50" Grid.Row="0"/>
+                <Button Text="Log Out" Grid.Column="1" Grid.Row="0" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding LogOut}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>
